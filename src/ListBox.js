@@ -10,7 +10,7 @@ export default function ListBox({ movies }) {
   );
 }
 
-function MoviesList({ movies }) {
+export function MoviesList({ movies }) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
@@ -20,7 +20,7 @@ function MoviesList({ movies }) {
   );
 }
 
-function Movie({ movie }) {
+export function Movie({ movie }) {
   return (
     <li>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
