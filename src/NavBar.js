@@ -16,6 +16,7 @@ function NumResults({ movies }) {
     </p>
   );
 }
+
 function Logo() {
   return (
     <div className="logo">
@@ -24,6 +25,7 @@ function Logo() {
     </div>
   );
 }
+
 function Search() {
   const [query, setQuery] = useState("");
   return (
