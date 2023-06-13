@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NavBar from "./NavBar";
+import MoviesList from "./MoviesList";
 
 const tempMovieData = [
   {
@@ -62,36 +63,19 @@ export default function App() {
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
+  function handleSetIsOpen1() {
+    setIsOpen1((open) => !open);
+  }
+
   return (
     <>
       <NavBar movies={movies} onSetQuery={setQuery} query={query} />
-
       <main className="main">
-        <div className="box">
-          <button
-            className="btn-toggle"
-            onClick={() => setIsOpen1((open) => !open)}
-          >
-            {isOpen1 ? "–" : "+"}
-          </button>
-          {isOpen1 && (
-            <ul className="list">
-              {movies?.map((movie) => (
-                <li key={movie.imdbID}>
-                  <img src={movie.Poster} alt={`${movie.Title} poster`} />
-                  <h3>{movie.Title}</h3>
-                  <div>
-                    <p>
-                      <span>🗓</span>
-                      <span>{movie.Year}</span>
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
+        <MoviesList
+          onSetIsOpen={handleSetIsOpen1}
+          isOpen={isOpen1}
+          movies={movies}
+        />
         <div className="box">
           <button
             className="btn-toggle"
