@@ -65,13 +65,13 @@ function WatchedMoviesList({ watched }) {
   return (
     <ul className="list">
       {watched.map((movie) => (
-        <Movie movie={movie} />
+        <WatchedMovie movie={movie} />
       ))}
     </ul>
   );
 }
 
-function Movie({ movie }) {
+function WatchedMovie({ movie }) {
   return (
     <li key={movie.imdbID}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
