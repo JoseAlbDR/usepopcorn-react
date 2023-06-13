@@ -1,17 +1,11 @@
-import ToggleBtn from "./ToggleBtn";
-import { useState } from "react";
-export default function ListBox({ children }) {
-  const [isOpen, setIsOpen] = useState(true);
+export default function MoviesList({ movies }) {
   return (
-    <div className="box">
-      <ToggleBtn isOpen={isOpen} onSetIsOpen={setIsOpen} />
-      {isOpen && children}
-    </div>
+    <ul className="list">
+      {movies?.map((movie) => (
+        <Movie movie={movie} key={movie.imdbID} />
+      ))}
+    </ul>
   );
-}
-
-export function MoviesList({ children }) {
-  return <ul className="list">{children}</ul>;
 }
 
 export function Movie({ movie }) {
