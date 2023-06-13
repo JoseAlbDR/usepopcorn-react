@@ -2,7 +2,6 @@ import { useState } from "react";
 import NavBar from "./NavBar";
 import MoviesList from "./MoviesList";
 import Summary from "./Summary";
-import BtnToggle from "./BtnToggle";
 
 const tempMovieData = [
   {
@@ -37,18 +36,8 @@ export default function App() {
     <>
       <NavBar movies={movies} />
       <main className="main">
-        <div className="box">
-          <BtnToggle isOpen={isOpen1} onSetIsOpen={setIsOpen1} />
-          <MoviesList
-            onSetIsOpen={setIsOpen1}
-            isOpen={isOpen1}
-            movies={movies}
-          />
-        </div>
-        <div className="box">
-          <BtnToggle isOpen={isOpen2} onSetIsOpen={setIsOpen2} />
-          <Summary isOpen={isOpen2} />
-        </div>
+        <MoviesList onSetIsOpen={setIsOpen1} isOpen={isOpen1} movies={movies} />
+        <Summary onSetIsOpen={setIsOpen2} isOpen={isOpen2} />
       </main>
     </>
   );

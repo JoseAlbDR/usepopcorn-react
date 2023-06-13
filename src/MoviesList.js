@@ -1,6 +1,9 @@
+import BtnToggle from "./BtnToggle";
+
 export default function MoviesList({ onSetIsOpen, isOpen, movies }) {
   return (
-    <>
+    <div className="box">
+      <BtnToggle isOpen={isOpen} onSetIsOpen={onSetIsOpen} />
       {isOpen && (
         <ul className="list">
           {movies?.map((movie) => (
@@ -8,7 +11,7 @@ export default function MoviesList({ onSetIsOpen, isOpen, movies }) {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
