@@ -5,14 +5,18 @@ export default function MoviesList({ movies }) {
   return (
     <div className="box">
       <BtnToggle isOpen={isOpen} onSetIsOpen={setIsOpen} />
-      {isOpen && (
-        <ul className="list">
-          {movies?.map((movie) => (
-            <Movie movie={movie} />
-          ))}
-        </ul>
-      )}
+      {isOpen && <Movies movies={movies} />}
     </div>
+  );
+}
+
+function Movies({ movies }) {
+  return (
+    <ul className="list">
+      {movies?.map((movie) => (
+        <Movie movie={movie} />
+      ))}
+    </ul>
   );
 }
 

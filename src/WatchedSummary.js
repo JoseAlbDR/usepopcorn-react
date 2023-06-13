@@ -27,30 +27,36 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-export default function Summary() {
+export default function WatchedSummary() {
   const [watched, setWatched] = useState(tempWatchedData);
   const [isOpen, setIsOpen] = useState(true);
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
     <div className="box">
       <BtnToggle isOpen={isOpen} onSetIsOpen={setIsOpen} />
       {isOpen && (
         <>
-          <div className="summary">
-            <h2>Movies you watched</h2>
-            <div>
-              <SummaryItem icon={"#️⃣"}>{watched.length} movies</SummaryItem>
-              <SummaryItem icon={"⭐️"}>{avgImdbRating}</SummaryItem>
-              <SummaryItem icon={"🌟"}>{avgUserRating}</SummaryItem>
-              <SummaryItem icon={"⏳"}>{avgRuntime}min</SummaryItem>
-            </div>
-          </div>
+          <Summary watched={watched} />
           <WatchedMoviesList watched={watched} />
         </>
       )}
+    </div>
+  );
+}
+
+function Summary({ watched }) {
+  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
+  const avgUserRating = average(watched.map((movie) => movie.userRating));
+  const avgRuntime = average(watched.map((movie) => movie.runtime));
+  return (
+    <div className="summary">
+      <h2>Movies you watched</h2>
+      <div>
+        <SummaryItem icon={"#️⃣"}>{watched.length} movies</SummaryItem>
+        <SummaryItem icon={"⭐️"}>{avgImdbRating}</SummaryItem>
+        <SummaryItem icon={"🌟"}>{avgUserRating}</SummaryItem>
+        <SummaryItem icon={"⏳"}>{avgRuntime}min</SummaryItem>
+      </div>
     </div>
   );
 }

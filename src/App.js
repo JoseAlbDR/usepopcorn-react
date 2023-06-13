@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NavBar from "./NavBar";
 import MoviesList from "./MoviesList";
-import Summary from "./Summary";
+import WatchedSummary from "./WatchedSummary";
 
 const tempMovieData = [
   {
@@ -35,7 +35,7 @@ export default function App() {
       <NavBar movies={movies} />
       <main className="main">
         <MoviesList movies={movies} />
-        <Summary />
+        <WatchedSummary />
       </main>
     </>
   );
