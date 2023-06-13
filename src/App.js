@@ -28,63 +28,26 @@ const tempMovieData = [
   },
 ];
 
-const tempWatchedData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-    runtime: 148,
-    imdbRating: 8.8,
-    userRating: 10,
-  },
-  {
-    imdbID: "tt0088763",
-    Title: "Back to the Future",
-    Year: "1985",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-    runtime: 116,
-    imdbRating: 8.5,
-    userRating: 9,
-  },
-];
-
-const average = (arr) =>
-  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
-
 export default function App() {
-  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true);
 
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
-  const averages = { avgImdbRating, avgUserRating, avgRuntime };
-
-  function handleSetIsOpen1() {
-    setIsOpen1((open) => !open);
-  }
-
   return (
     <>
-      <NavBar movies={movies} onSetQuery={setQuery} query={query} />
+      <NavBar movies={movies} />
       <main className="main">
         <div className="box">
           <BtnToggle isOpen={isOpen1} onSetIsOpen={setIsOpen1} />
           <MoviesList
-            onSetIsOpen={handleSetIsOpen1}
+            onSetIsOpen={setIsOpen1}
             isOpen={isOpen1}
             movies={movies}
           />
         </div>
         <div className="box">
           <BtnToggle isOpen={isOpen2} onSetIsOpen={setIsOpen2} />
-          <Summary avgs={averages} watched={watched} isOpen={isOpen2} />
+          <Summary isOpen={isOpen2} />
         </div>
       </main>
     </>
