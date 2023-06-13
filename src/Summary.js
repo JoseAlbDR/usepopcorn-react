@@ -27,15 +27,16 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-export default function Summary({ isOpen, onSetIsOpen }) {
+export default function Summary() {
   const [watched, setWatched] = useState(tempWatchedData);
+  const [isOpen, setIsOpen] = useState(true);
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
     <div className="box">
-      <BtnToggle isOpen={isOpen} onSetIsOpen={onSetIsOpen} />
+      <BtnToggle isOpen={isOpen} onSetIsOpen={setIsOpen} />
       {isOpen && (
         <>
           <div className="summary">

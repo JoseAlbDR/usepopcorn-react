@@ -29,15 +29,13 @@ const tempMovieData = [
 
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
-  const [isOpen1, setIsOpen1] = useState(true);
-  const [isOpen2, setIsOpen2] = useState(true);
 
   return (
     <>
       <NavBar movies={movies} />
       <main className="main">
-        <MoviesList onSetIsOpen={setIsOpen1} isOpen={isOpen1} movies={movies} />
-        <Summary onSetIsOpen={setIsOpen2} isOpen={isOpen2} />
+        <MoviesList movies={movies} />
+        <Summary />
       </main>
     </>
   );

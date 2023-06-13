@@ -1,9 +1,10 @@
 import BtnToggle from "./BtnToggle";
-
-export default function MoviesList({ onSetIsOpen, isOpen, movies }) {
+import { useState } from "react";
+export default function MoviesList({ movies }) {
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="box">
-      <BtnToggle isOpen={isOpen} onSetIsOpen={onSetIsOpen} />
+      <BtnToggle isOpen={isOpen} onSetIsOpen={setIsOpen} />
       {isOpen && (
         <ul className="list">
           {movies?.map((movie) => (
