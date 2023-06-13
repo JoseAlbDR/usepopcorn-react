@@ -1,5 +1,5 @@
 import { useState } from "react";
-import NavBar, { NumResults, Logo, Search } from "./NavBar";
+import NavBar, { NumResults, Search } from "./NavBar";
 import ListBox, { MoviesList, Movie } from "./ListBox";
 import WatchedBox from "./WatchedBox";
 
@@ -33,12 +33,17 @@ export default function App() {
   return (
     <>
       <NavBar>
-        <Logo />
         <Search />
         <NumResults movies={movies} />
       </NavBar>
       <Main>
-        <ListBox movies={movies} />
+        <ListBox>
+          <MoviesList>
+            {movies?.map((movie) => (
+              <Movie movie={movie} key={movie.imdbID} />
+            ))}
+          </MoviesList>
+        </ListBox>
         <WatchedBox />
       </Main>
     </>
