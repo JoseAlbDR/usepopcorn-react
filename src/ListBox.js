@@ -1,6 +1,6 @@
 import ToggleBtn from "./ToggleBtn";
 import { useState } from "react";
-export default function MoviesBox({ movies }) {
+export default function ListBox({ movies }) {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="box">
