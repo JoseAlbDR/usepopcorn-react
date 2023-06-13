@@ -33,10 +33,16 @@ export default function App() {
   return (
     <>
       <NavBar movies={movies} />
-      <main className="main">
-        <MoviesBox movies={movies} />
-        <WatchedBox />
-      </main>
+      <Main movies={movies} />
     </>
+  );
+}
+
+function Main({ movies }) {
+  return (
+    <main className="main">
+      <MoviesBox movies={movies} />
+      <WatchedBox />
+    </main>
   );
 }
