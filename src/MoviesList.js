@@ -1,12 +1,6 @@
 export default function MoviesList({ onSetIsOpen, isOpen, movies }) {
   return (
-    <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => onSetIsOpen((open) => !open)}
-      >
-        {isOpen ? "–" : "+"}
-      </button>
+    <>
       {isOpen && (
         <ul className="list">
           {movies?.map((movie) => (
@@ -23,6 +17,6 @@ export default function MoviesList({ onSetIsOpen, isOpen, movies }) {
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 }

@@ -74,42 +74,17 @@ export default function App() {
     <>
       <NavBar movies={movies} onSetQuery={setQuery} query={query} />
       <main className="main">
-        <MoviesList
-          onSetIsOpen={handleSetIsOpen1}
-          isOpen={isOpen1}
-          movies={movies}
-        />
+        <div className="box">
+          <BtnToggle isOpen={isOpen1} onSetIsOpen={setIsOpen1} />
+          <MoviesList
+            onSetIsOpen={handleSetIsOpen1}
+            isOpen={isOpen1}
+            movies={movies}
+          />
+        </div>
         <div className="box">
           <BtnToggle isOpen={isOpen2} onSetIsOpen={setIsOpen2} />
-
-          {isOpen2 && (
-            <>
-              <Summary avgs={averages} watched={watched} />
-
-              <ul className="list">
-                {watched.map((movie) => (
-                  <li key={movie.imdbID}>
-                    <img src={movie.Poster} alt={`${movie.Title} poster`} />
-                    <h3>{movie.Title}</h3>
-                    <div>
-                      <p>
-                        <span>⭐️</span>
-                        <span>{movie.imdbRating}</span>
-                      </p>
-                      <p>
-                        <span>🌟</span>
-                        <span>{movie.userRating}</span>
-                      </p>
-                      <p>
-                        <span>⏳</span>
-                        <span>{movie.runtime} min</span>
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
+          <Summary avgs={averages} watched={watched} isOpen={isOpen2} />
         </div>
       </main>
     </>
