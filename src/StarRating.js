@@ -18,11 +18,20 @@ const textStyle = {
 export default function StarRating({ maxRating = 5 }) {
   const [rating, setRating] = useState(0);
 
+  function handleOnMouseOver(i) {
+    setRating(i);
+  }
+
   return (
     <div style={containerStyle}>
       <div style={starContainerStyle}>
         {Array.from({ length: maxRating }, (_, i) => (
-          <Star onClick={() => setRating(i + 1)} key={i} />
+          <Star
+            onMouseOver={() => handleOnMouseOver(i + 1)}
+            key={i}
+            star={i + 1}
+            rating={rating}
+          />
         ))}
       </div>
       <p style={textStyle}>{rating || ""}</p>
@@ -67,6 +76,10 @@ const emptyStar = (
   </span>
 );
 
-function Star({ onClick }) {
-  return <span onClick={onClick}>{fullStar}</span>;
+function Star({ onMouseOver, rating, star }) {
+  return (
+    <span onMouseOver={onMouseOver}>
+      {rating >= star ? fullStar : emptyStar}
+    </span>
+  );
 }
