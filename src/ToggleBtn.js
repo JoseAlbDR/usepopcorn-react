@@ -1,4 +1,4 @@
-export default function BtnToggle({ isOpen, onSetIsOpen }) {
+export default function ToggleBtn({ isOpen, onSetIsOpen }) {
   return (
     <>
       <button

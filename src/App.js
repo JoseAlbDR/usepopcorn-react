@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NavBar from "./NavBar";
-import MoviesList from "./MoviesList";
-import WatchedSummary from "./WatchedSummary";
+import MoviesBox from "./MoviesBox";
+import WatchedBox from "./WatchedBox";
 
 const tempMovieData = [
   {
@@ -34,8 +34,8 @@ export default function App() {
     <>
       <NavBar movies={movies} />
       <main className="main">
-        <MoviesList movies={movies} />
-        <WatchedSummary />
+        <MoviesBox movies={movies} />
+        <WatchedBox />
       </main>
     </>
   );

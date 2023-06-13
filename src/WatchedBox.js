@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BtnToggle from "./BtnToggle";
+import ToggleBtn from "./ToggleBtn";
 
 const tempWatchedData = [
   {
@@ -27,16 +27,16 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-export default function WatchedSummary() {
+export default function WatchedBox() {
   const [watched, setWatched] = useState(tempWatchedData);
   const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className="box">
-      <BtnToggle isOpen={isOpen} onSetIsOpen={setIsOpen} />
+      <ToggleBtn isOpen={isOpen} onSetIsOpen={setIsOpen} />
       {isOpen && (
         <>
-          <Summary watched={watched} />
+          <WatchedSummary watched={watched} />
           <WatchedMoviesList watched={watched} />
         </>
       )}
@@ -44,7 +44,7 @@ export default function WatchedSummary() {
   );
 }
 
-function Summary({ watched }) {
+function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
