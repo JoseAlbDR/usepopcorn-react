@@ -1,8 +1,9 @@
 import { useState } from "react";
 import NavBar, { NumResults, Search } from "./NavBar";
-import MoviesList from "./ListBox";
-import { WatchedSummary, WatchedMoviesList } from "./WatchedBox";
+import MoviesList from "./MovieList";
+import WatchedList, { WatchedSummary, WatchedMoviesList } from "./WatchedList";
 import Box from "./Box";
+
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -66,8 +67,10 @@ export default function App() {
           <MoviesList movies={movies} />
         </Box>
         <Box>
-          <WatchedSummary watched={watched} />
-          <WatchedMoviesList watched={watched} />
+          <WatchedList>
+            <WatchedSummary watched={watched} />
+            <WatchedMoviesList watched={watched} />
+          </WatchedList>
         </Box>
       </Main>
     </>
