@@ -1,6 +1,8 @@
 import { useState } from "react";
 import NavBar from "./NavBar";
 import MoviesList from "./MoviesList";
+import Summary from "./Summary";
+import BtnToggle from "./BtnToggle";
 
 const tempMovieData = [
   {
@@ -62,6 +64,7 @@ export default function App() {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
+  const averages = { avgImdbRating, avgUserRating, avgRuntime };
 
   function handleSetIsOpen1() {
     setIsOpen1((open) => !open);
@@ -77,35 +80,11 @@ export default function App() {
           movies={movies}
         />
         <div className="box">
-          <button
-            className="btn-toggle"
-            onClick={() => setIsOpen2((open) => !open)}
-          >
-            {isOpen2 ? "–" : "+"}
-          </button>
+          <BtnToggle isOpen={isOpen2} onSetIsOpen={setIsOpen2} />
+
           {isOpen2 && (
             <>
-              <div className="summary">
-                <h2>Movies you watched</h2>
-                <div>
-                  <p>
-                    <span>#️⃣</span>
-                    <span>{watched.length} movies</span>
-                  </p>
-                  <p>
-                    <span>⭐️</span>
-                    <span>{avgImdbRating}</span>
-                  </p>
-                  <p>
-                    <span>🌟</span>
-                    <span>{avgUserRating}</span>
-                  </p>
-                  <p>
-                    <span>⏳</span>
-                    <span>{avgRuntime} min</span>
-                  </p>
-                </div>
-              </div>
+              <Summary avgs={averages} watched={watched} />
 
               <ul className="list">
                 {watched.map((movie) => (

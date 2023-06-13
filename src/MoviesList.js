@@ -1,5 +1,4 @@
 export default function MoviesList({ onSetIsOpen, isOpen, movies }) {
-  console.log(movies);
   return (
     <div className="box">
       <button
