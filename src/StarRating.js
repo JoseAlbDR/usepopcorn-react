@@ -52,7 +52,6 @@ export default function StarRating({
         ))}
       </div>
       <p style={textStyle}>
-        {console.log(tempRating)}
         {messages.length === maxRating
           ? messages[tempRating ? tempRating - 1 : rating - 1]
           : tempRating || rating || 0}
