@@ -7,8 +7,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <StarRating maxRating={5} />
-    <StarRating maxRating={7} />
-    <StarRating />
+    <StarRating maxRating={10} />
+    {/* <StarRating maxRating={7} />
+    <StarRating /> */}
   </React.StrictMode>
 );
