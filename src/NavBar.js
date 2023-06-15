@@ -11,7 +11,7 @@ export default function NavBar({ children }) {
 export function NumResults({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>{movies.length}</strong> results
+      Found <strong>{movies?.length || 0}</strong> results
     </p>
   );
 }
@@ -30,6 +30,7 @@ export function Search({ onSearch }) {
 
   function onSubmit(e) {
     e.preventDefault();
+    setQuery("");
     onSearch(query);
   }
 
