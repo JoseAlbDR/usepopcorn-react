@@ -63,22 +63,30 @@ export default function App() {
   //     .then((data) => setMovies(data.Search))
   //     .catch((err) => console.log(err.message));
   // }, []);
-  useEffect(
-    () =>
-      async function () {
-        const response = await fetch(
-          `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=interstellar`
-        );
-        const data = await response.json();
-        setMovies(data.Search);
-      },
-    []
-  );
+  // useEffect(
+  //   () =>
+  //     async function () {
+  //       const response = await fetch(
+  //         `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=interstellar`
+  //       );
+  //       const data = await response.json();
+  //       setMovies(data.Search);
+  //     },
+  //   []
+  // );
+
+  async function handleSearch(query) {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
+    );
+    const data = await response.json();
+    setMovies(data.Search);
+  }
 
   return (
     <>
       <NavBar>
-        <Search />
+        <Search onSearch={handleSearch} />
         <NumResults movies={movies} />
       </NavBar>
 

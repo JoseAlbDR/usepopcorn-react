@@ -25,15 +25,23 @@ export function Logo() {
   );
 }
 
-export function Search() {
+export function Search({ onSearch }) {
   const [query, setQuery] = useState("");
+
+  function onSubmit(e) {
+    e.preventDefault();
+    onSearch(query);
+  }
+
   return (
-    <input
-      className="search"
-      type="text"
-      placeholder="Search movies..."
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-    />
+    <form onSubmit={onSubmit}>
+      <input
+        className="search"
+        type="text"
+        placeholder="Search movies..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+    </form>
   );
 }
