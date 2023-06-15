@@ -11,7 +11,7 @@ export default function NavBar({ children }) {
 export function NumResults({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>{movies?.length || 0}</strong> results
+      Found <strong>{!movies ? 0 : movies.length}</strong> results
     </p>
   );
 }
@@ -43,6 +43,9 @@ export function Search({ onSearch }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
+      <span>
+        <button className="search-btn">🔍</button>
+      </span>
     </form>
   );
 }
