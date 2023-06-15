@@ -85,19 +85,17 @@ export default function App() {
       const response = await fetch(
         `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
       );
-      console.log(response);
+
       if (!response.ok)
         throw new Error("Something went wrong with fetching movies.");
-
       const data = await response.json();
+
       if (data.Response === "False") throw new Error(data.Error);
       setMovies(data.Search);
-      setIsLoading(false);
       setError("");
     } catch (err) {
-      setIsLoading(true);
-      console.log(err.message);
       setError(err.message);
+    } finally {
       setIsLoading(false);
     }
   }
