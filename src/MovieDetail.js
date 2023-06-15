@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-export default function MovieDetail({ selectedId }) {
+export default function MovieDetail({ selectedId, onCloseMovie }) {
   const [movie, setMovie] = useState(null);
   useEffect(
     () =>
@@ -17,5 +17,12 @@ export default function MovieDetail({ selectedId }) {
       }[movie]
   );
 
-  return <div className="details">{selectedId}</div>;
+  return (
+    <div className="details">
+      <button className="btn-back" onClick={onCloseMovie}>
+        &larr;
+      </button>
+      {selectedId}
+    </div>
+  );
 }

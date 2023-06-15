@@ -95,8 +95,12 @@ export default function App() {
   //   [watched]
   // );
 
-  async function handleSelectMovie(id) {
-    setSelectedId(id);
+  function handleSelectMovie(id) {
+    selectedId === id ? setSelectedId(null) : setSelectedId(id);
+  }
+
+  function handleCloseMovie() {
+    setSelectedId(null);
   }
 
   async function handleSearch(query) {
@@ -158,7 +162,10 @@ export default function App() {
         <Box>
           <WatchedList>
             {selectedId ? (
-              <MovieDetail selectedId={selectedId} />
+              <MovieDetail
+                selectedId={selectedId}
+                onCloseMovie={handleCloseMovie}
+              />
             ) : (
               <>
                 <WatchedSummary watched={watched} />
