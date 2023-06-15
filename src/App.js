@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar, { NumResults, Search } from "./NavBar";
 import MoviesList from "./MovieList";
 import WatchedList, { WatchedSummary, WatchedMoviesList } from "./WatchedList";
@@ -52,8 +52,28 @@ const tempWatchedData = [
 ];
 
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+
+  // useEffect(function () {
+  //   fetch(
+  //     `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=interstellar`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => setMovies(data.Search))
+  //     .catch((err) => console.log(err.message));
+  // }, []);
+  useEffect(
+    () =>
+      async function () {
+        const response = await fetch(
+          `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=interstellar`
+        );
+        const data = await response.json();
+        setMovies(data.Search);
+      },
+    []
+  );
 
   return (
     <>
