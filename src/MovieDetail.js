@@ -46,13 +46,15 @@ export default function MovieDetails({
           movie={movie}
           onCloseMovie={onCloseMovie}
           onAddWatched={onAddWatched}
+          imdbID={selectedId}
         />
       )}
     </>
   );
 }
 
-function Details({ movie, onCloseMovie, onAddWatched }) {
+function Details({ movie, onCloseMovie, onAddWatched, imdbID }) {
+  const [userRating, setUserRating] = useState(0);
   const {
     Title: title,
     Year: year,
@@ -65,6 +67,24 @@ function Details({ movie, onCloseMovie, onAddWatched }) {
     Director: director,
     Genre: genre,
   } = movie;
+
+  function handleAdd() {
+    const newWatchedMovie = {
+      imdbID,
+      imdbRating: +imdbRating,
+      title,
+      year,
+      poster,
+      runtime: +runtime.split(" ").at(0),
+      userRating,
+    };
+    onAddWatched(newWatchedMovie);
+    onCloseMovie();
+  }
+
+  function handleSetRating(rating) {
+    setUserRating(rating);
+  }
 
   return (
     <div className="details">
@@ -87,8 +107,8 @@ function Details({ movie, onCloseMovie, onAddWatched }) {
       </header>
       <section>
         <div className="rating">
-          <StarRating maxRating={10} size={24} />
-          <button className="btn-add" onClick={() => onAddWatched(movie)}>
+          <StarRating maxRating={10} size={24} onSetRating={handleSetRating} />
+          <button className="btn-add" onClick={handleAdd}>
             + Add to list
           </button>
         </div>
