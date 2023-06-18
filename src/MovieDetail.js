@@ -1,5 +1,6 @@
 import StarRating from "./StarRating";
 import { useEffect, useState } from "react";
+
 export default function MovieDetails({ selectedId, onCloseMovie }) {
   console.log(selectedId);
   const [movie, setMovie] = useState({});
@@ -16,7 +17,6 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
     Genre: genre,
   } = movie;
 
-  console.log(title, year);
   useEffect(
     function () {
       async function getMovieDetails() {
@@ -36,6 +36,7 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
       <button className="btn-back" onClick={onCloseMovie}>
         &larr;
       </button>
+
       <header>
         <img src={poster} alt={movie} />
         <div className="details-overview">
