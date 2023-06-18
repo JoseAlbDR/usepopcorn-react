@@ -27,6 +27,14 @@ export default function App() {
       setWatched((watched) => [...watched, movie]);
   }
 
+  function handleUpdateWatched(imdbID, rating) {
+    setWatched((watched) =>
+      watched.map((watched) =>
+        watched.imdbID === imdbID ? { ...watched, userRating: rating } : watched
+      )
+    );
+  }
+
   async function handleSearch(query) {
     try {
       setIsLoading(true);
@@ -87,9 +95,11 @@ export default function App() {
           <WatchedList>
             {selectedId ? (
               <MovieDetail
+                watched={watched}
                 selectedId={selectedId}
                 onCloseMovie={handleCloseMovie}
                 onAddWatched={handleAddWatched}
+                onUpdateWatched={handleUpdateWatched}
               />
             ) : (
               <>

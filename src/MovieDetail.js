@@ -7,6 +7,8 @@ export default function MovieDetails({
   selectedId,
   onCloseMovie,
   onAddWatched,
+  onUpdateWatched,
+  watched,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [movie, setMovie] = useState({});
@@ -24,6 +26,8 @@ export default function MovieDetails({
             throw new Error("Something happened while fetching data.");
           const data = await res.json();
           if (data.Response === "False") throw new Error(data.Error);
+          const found = watched.find((movie) => movie.imdbID === selectedId);
+          found ? (data.rating = found.userRating) : (data.rating = 0);
           setMovie(data);
         } catch (err) {
           console.error(err.message);
@@ -34,7 +38,7 @@ export default function MovieDetails({
       }
       getMovieDetails();
     },
-    [selectedId]
+    [selectedId, watched]
   );
 
   return (
@@ -46,6 +50,7 @@ export default function MovieDetails({
           movie={movie}
           onCloseMovie={onCloseMovie}
           onAddWatched={onAddWatched}
+          onUpdateWatched={onUpdateWatched}
           imdbID={selectedId}
         />
       )}
@@ -53,7 +58,13 @@ export default function MovieDetails({
   );
 }
 
-function Details({ movie, onCloseMovie, onAddWatched, imdbID }) {
+function Details({
+  movie,
+  onCloseMovie,
+  onAddWatched,
+  onUpdateWatched,
+  imdbID,
+}) {
   const [userRating, setUserRating] = useState(0);
 
   const {
@@ -67,6 +78,7 @@ function Details({ movie, onCloseMovie, onAddWatched, imdbID }) {
     Actors: actors,
     Director: director,
     Genre: genre,
+    rating,
   } = movie;
 
   function handleAdd() {
@@ -77,9 +89,12 @@ function Details({ movie, onCloseMovie, onAddWatched, imdbID }) {
       year,
       poster,
       runtime: +runtime.split(" ").at(0),
-      userRating,
+      userRating: userRating,
     };
-    onAddWatched(newWatchedMovie);
+
+    rating > 0 && userRating !== rating
+      ? onUpdateWatched(imdbID, userRating)
+      : onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
 
@@ -108,9 +123,14 @@ function Details({ movie, onCloseMovie, onAddWatched, imdbID }) {
       </header>
       <section>
         <div className="rating">
-          <StarRating maxRating={10} size={24} onSetRating={handleSetRating} />
+          <StarRating
+            maxRating={10}
+            size={24}
+            onSetRating={handleSetRating}
+            defaultRating={rating}
+          />
           <button className="btn-add" onClick={handleAdd}>
-            + Add to list
+            {rating > 0 ? "Modify Rating" : "+ Add to list."}
           </button>
         </div>
         <p>
