@@ -55,6 +55,7 @@ export default function MovieDetails({
 
 function Details({ movie, onCloseMovie, onAddWatched, imdbID }) {
   const [userRating, setUserRating] = useState(0);
+
   const {
     Title: title,
     Year: year,

@@ -23,7 +23,8 @@ export default function App() {
   }
 
   function handleAddWatched(movie) {
-    setWatched((watched) => [...watched, movie]);
+    if (!watched.some((mov) => mov.imdbID === movie.imdbID))
+      setWatched((watched) => [...watched, movie]);
   }
 
   async function handleSearch(query) {
