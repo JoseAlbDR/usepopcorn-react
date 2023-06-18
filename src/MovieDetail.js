@@ -1,6 +1,7 @@
 import StarRating from "./StarRating";
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
+import ErrorMessage from "./ErrorMessage";
 
 export default function MovieDetails({ selectedId, onCloseMovie }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -48,35 +49,44 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="details">
-        <button className="btn-back" onClick={onCloseMovie}>
-          &larr;
-        </button>
-
-        <header>
-          <img src={poster} alt={movie} />
-          <div className="details-overview">
-            <h2>{title}</h2>
-            <p>
-              {released} &bull; {runtime}
-            </p>
-            <p>{genre}</p>
-            <p>
-              <span>⭐{imdbRating} IMDb rating</span>
-            </p>
-          </div>
-        </header>
-        <section>
-          <div className="rating">
-            <StarRating maxRating={10} size={24} />
-          </div>
-          <p>
-            <em>{plot}</em>
-          </p>
-          <p>Starring {actors}</p>
-          <p>Directed by {director}</p>
-        </section>
-      </div>
+      {!isLoading && error && <ErrorMessage msg={error} />}
+      {!isLoading && !error && (
+        <Details movie={movie} onCloseMovie={onCloseMovie} />
+      )}
     </>
+  );
+}
+
+function Details({ movie, onCloseMovie }) {
+  return (
+    <div className="details">
+      <button className="btn-back" onClick={onCloseMovie}>
+        &larr;
+      </button>
+
+      <header>
+        <img src={movie.Poster} alt={movie.Poster} />
+        <div className="details-overview">
+          <h2>{movie.Title}</h2>
+          <p>
+            {movie.Released} &bull; {movie.Runtime}
+          </p>
+          <p>{movie.Genre}</p>
+          <p>
+            <span>⭐{movie.imdbRating} IMDb rating</span>
+          </p>
+        </div>
+      </header>
+      <section>
+        <div className="rating">
+          <StarRating maxRating={10} size={24} />
+        </div>
+        <p>
+          <em>{movie.Plot}</em>
+        </p>
+        <p>Starring {movie.Actors}</p>
+        <p>Directed by {movie.Director}</p>
+      </section>
+    </div>
   );
 }
