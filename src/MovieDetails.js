@@ -1,7 +1,5 @@
-import StarRating from "./StarRating";
 import { useEffect, useState } from "react";
 export default function MovieDetails({ selectedId, onCloseMovie }) {
-  console.log(selectedId);
   const [movie, setMovie] = useState({});
   const {
     Title: title,
@@ -18,16 +16,19 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
 
   console.log(title, year);
   useEffect(
-    function () {
-      async function getMovieDetails() {
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${selectedId}`
-        );
-        const data = await res.json();
-        setMovie(data);
-      }
-      getMovieDetails();
-    },
+    () =>
+      async function () {
+        console.log(selectedId);
+        try {
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${selectedId}`
+          );
+          const data = await res.json();
+          setMovie(data);
+        } catch (err) {
+          console.log(err.message);
+        }
+      },
     [selectedId]
   );
 
@@ -50,7 +51,6 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
         </div>
       </header>
       <section>
-        <StarRating />
         <p>
           <em>{plot}</em>
         </p>
