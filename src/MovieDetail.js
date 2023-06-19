@@ -26,8 +26,12 @@ export default function MovieDetails({
             throw new Error("Something happened while fetching data.");
           const data = await res.json();
           if (data.Response === "False") throw new Error(data.Error);
-          const found = watched.find((movie) => movie.imdbID === selectedId);
-          found ? (data.rating = found.userRating) : (data.rating = 0);
+          const foundMovie = watched.find(
+            (movie) => movie.imdbID === selectedId
+          );
+          foundMovie
+            ? (data.rating = foundMovie.userRating)
+            : (data.rating = 0);
           setMovie(data);
         } catch (err) {
           console.error(err.message);
@@ -81,7 +85,7 @@ function Details({
     rating,
   } = movie;
 
-  function handleAdd() {
+  function handleAddUpdate() {
     const newWatchedMovie = {
       imdbID,
       imdbRating: +imdbRating,
@@ -129,7 +133,7 @@ function Details({
             onSetRating={handleSetRating}
             defaultRating={rating}
           />
-          <button className="btn-add" onClick={handleAdd}>
+          <button className="btn-add" onClick={handleAddUpdate}>
             {rating > 0 ? "Modify Rating" : "+ Add to list"}
           </button>
         </div>

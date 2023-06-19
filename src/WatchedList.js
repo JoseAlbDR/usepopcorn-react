@@ -9,7 +9,7 @@ export function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
-
+  console.log(watched);
   return (
     <div className="summary">
       <h2>Movies you watched</h2>
@@ -23,7 +23,7 @@ export function WatchedSummary({ watched }) {
   );
 }
 
-export function WatchedMoviesList({ watched, onSelectMovie }) {
+export function WatchedMoviesList({ watched, onSelectMovie, onDeleteMovie }) {
   return (
     <ul className="list list-movies">
       {watched.map((movie) => (
@@ -31,23 +31,32 @@ export function WatchedMoviesList({ watched, onSelectMovie }) {
           movie={movie}
           key={movie.imdbID}
           onSelectMovie={onSelectMovie}
+          onDeleteMovie={onDeleteMovie}
         />
       ))}
     </ul>
   );
 }
 
-function WatchedMovie({ movie, onSelectMovie }) {
+function WatchedMovie({ movie, onSelectMovie, onDeleteMovie }) {
   return (
-    <li onClick={() => onSelectMovie(movie.imdbID)}>
-      <img src={movie.poster} alt={`${movie.title} poster`} />
-      <h3>{movie.title}</h3>
-      <div>
-        <SummaryItem icon={"⭐️"}>{movie.imdbRating}</SummaryItem>
-        <SummaryItem icon={"🌟"}>{movie.userRating}</SummaryItem>
-        <SummaryItem icon={"⏳"}>{movie.runtime} min</SummaryItem>
-      </div>
-    </li>
+    <div>
+      <li onClick={() => onSelectMovie(movie.imdbID)}>
+        <img src={movie.poster} alt={`${movie.title} poster`} />
+        <h3>{movie.title}</h3>
+        <div>
+          <SummaryItem icon={"⭐️"}>{movie.imdbRating}</SummaryItem>
+          <SummaryItem icon={"🌟"}>{movie.userRating}</SummaryItem>
+          <SummaryItem icon={"⏳"}>{movie.runtime} min</SummaryItem>
+        </div>
+      </li>
+      <button
+        className="btn-delete"
+        onClick={() => onDeleteMovie(movie.imdbID)}
+      >
+        ❌
+      </button>
+    </div>
   );
 }
 

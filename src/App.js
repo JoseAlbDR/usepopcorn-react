@@ -35,6 +35,10 @@ export default function App() {
     );
   }
 
+  function handleDeleteWatched(imdbID) {
+    setWatched((watched) => watched.filter((movie) => movie.imdbID !== imdbID));
+  }
+
   async function handleSearch(query) {
     try {
       setIsLoading(true);
@@ -46,7 +50,6 @@ export default function App() {
       if (!response.ok)
         throw new Error("Something went wrong with fetching movies.");
       const data = await response.json();
-      console.log(data);
       if (data.Response === "False") throw new Error(data.Error);
       setMovies(data.Search);
       setError("");
@@ -107,6 +110,7 @@ export default function App() {
                 <WatchedMoviesList
                   watched={watched}
                   onSelectMovie={handleSelectMovie}
+                  onDeleteMovie={handleDeleteWatched}
                 />
               </>
             )}
