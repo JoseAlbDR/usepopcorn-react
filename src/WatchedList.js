@@ -15,8 +15,8 @@ export function WatchedSummary({ watched }) {
       <h2>Movies you watched</h2>
       <div>
         <SummaryItem icon={"#️⃣"}>{watched.length} movies</SummaryItem>
-        <SummaryItem icon={"⭐️"}>{avgImdbRating}</SummaryItem>
-        <SummaryItem icon={"🌟"}>{avgUserRating}</SummaryItem>
+        <SummaryItem icon={"⭐️"}>{avgImdbRating.toFixed(2)}</SummaryItem>
+        <SummaryItem icon={"🌟"}>{avgUserRating.toFixed(2)}</SummaryItem>
         <SummaryItem icon={"⏳"}>{avgRuntime}min</SummaryItem>
       </div>
     </div>
