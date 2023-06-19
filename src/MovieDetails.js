@@ -16,11 +16,15 @@ export default function MovieDetails({
 
   useEffect(
     function () {
+      const controller = new AbortController();
+
       async function getMovieDetails() {
         try {
           setIsLoading(true);
+          setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${selectedId}`
+            `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${selectedId}`,
+            { signal: controller.signal }
           );
           if (!res.ok)
             throw new Error("Something happened while fetching data.");
@@ -41,6 +45,10 @@ export default function MovieDetails({
         }
       }
       getMovieDetails();
+
+      return function () {
+        controller.abort();
+      };
     },
     [selectedId, watched]
   );
