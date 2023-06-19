@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavBar, { NumResults, Search } from "./NavBar";
 import MoviesList from "./MovieList";
 import WatchedList, { WatchedSummary, WatchedMoviesList } from "./WatchedList";
@@ -14,19 +14,23 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Close movie by seting selectedId to null
   function handleCloseMovie() {
     setSelectedId(null);
   }
 
+  // If selectedId is same as id close, if not set to id
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (selectedId === id ? null : id));
   }
 
+  // Add a new movie to watched list
   function handleAddWatched(movie) {
     if (!watched.some((mov) => mov.imdbID === movie.imdbID))
       setWatched((watched) => [...watched, movie]);
   }
 
+  // Update movie userRating
   function handleUpdateWatched(imdbID, rating) {
     setWatched((watched) =>
       watched.map((watched) =>
@@ -35,21 +39,34 @@ export default function App() {
     );
   }
 
+  // Delete a movie from watched list
   function handleDeleteWatched(imdbID) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== imdbID));
   }
 
+  // Function for search eventlistener in navBar
   async function handleSearch(query) {
     try {
+      // Guard clasue if query is empty
+      if (!query) return;
+
+      // Loading spiner to true
       setIsLoading(true);
+
+      // Close previous opened movie
       handleCloseMovie();
+
+      // Fetch data from API
       const response = await fetch(
         `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
       );
 
+      // Error handling if bad response
       if (!response.ok)
         throw new Error("Something went wrong with fetching movies.");
       const data = await response.json();
+
+      // Error handling if no/bad data
       if (data.Response === "False") throw new Error(data.Error);
       setMovies(data.Search);
       setError("");
@@ -60,10 +77,6 @@ export default function App() {
       setIsLoading(false);
     }
   }
-
-  // document.addEventListener("keydown", (e) => {
-  //   if (e.code === "Escape") handleCloseMovie();
-  // });
 
   return (
     <>
