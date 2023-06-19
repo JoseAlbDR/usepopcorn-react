@@ -61,14 +61,9 @@ export default function App() {
     }
   }
 
-  useEffect(function () {
-    document.addEventListener("keydown", function (e) {
-      if (e.code === "Escape") {
-        handleCloseMovie();
-        console.log("CLOSING");
-      }
-    });
-  }, []);
+  // document.addEventListener("keydown", (e) => {
+  //   if (e.code === "Escape") handleCloseMovie();
+  // });
 
   return (
     <>

@@ -14,8 +14,29 @@ export default function MovieDetails({
   const [movie, setMovie] = useState({});
   const [error, setError] = useState("");
 
+  // Close movie details with Esc key
   useEffect(
     function () {
+      function callBack(e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+          console.log("CLOSING");
+        }
+      }
+      //Attach
+      document.addEventListener("keydown", callBack);
+      //UnAttach
+      return function () {
+        document.removeEventListener("keydown", callBack);
+      };
+    },
+    [onCloseMovie]
+  );
+
+  // Effect to fetch data when a movie from the movie list is selected
+  useEffect(
+    function () {
+      // Abort controller to abort fetching data if movies are clicked too fast
       const controller = new AbortController();
 
       async function getMovieDetails() {
@@ -38,8 +59,10 @@ export default function MovieDetails({
             : (data.rating = 0);
           setMovie(data);
         } catch (err) {
-          if (err.name !== "AbortError") setError(err.message);
-          console.error(err.message);
+          if (err.name !== "AbortError") {
+            setError(err.message);
+            console.error(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
