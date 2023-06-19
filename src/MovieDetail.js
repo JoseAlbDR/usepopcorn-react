@@ -45,13 +45,6 @@ export default function MovieDetails({
     [selectedId, watched]
   );
 
-  useEffect(
-    function () {
-      document.title = movie.Title;
-    },
-    [movie.Title]
-  );
-
   return (
     <>
       {isLoading && <Loader />}
@@ -112,6 +105,13 @@ function Details({
   function handleSetRating(rating) {
     setUserRating(rating);
   }
+
+  useEffect(
+    function () {
+      document.title = title ? `Movie | ${title}` : "UsePopCorn";
+    },
+    [title]
+  );
 
   return (
     <div className="details">
