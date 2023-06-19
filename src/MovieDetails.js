@@ -20,7 +20,6 @@ export default function MovieDetails({
       function callBack(e) {
         if (e.code === "Escape") {
           onCloseMovie();
-          console.log("CLOSING");
         }
       }
       //Attach
@@ -67,6 +66,7 @@ export default function MovieDetails({
           setIsLoading(false);
         }
       }
+
       getMovieDetails();
 
       return function () {

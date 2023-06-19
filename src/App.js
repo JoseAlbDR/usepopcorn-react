@@ -42,7 +42,7 @@ export default function App() {
   async function handleSearch(query) {
     try {
       setIsLoading(true);
-
+      handleCloseMovie();
       const response = await fetch(
         `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
       );
