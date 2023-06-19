@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NavBar, { NumResults, Search } from "./NavBar";
 import MoviesList from "./MovieList";
 import WatchedList, { WatchedSummary, WatchedMoviesList } from "./WatchedList";
-import MovieDetail from "./MovieDetail";
+import MovieDetail from "./MovieDetails";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import Box from "./Box";
