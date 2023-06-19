@@ -130,7 +130,7 @@ function Details({
             defaultRating={rating}
           />
           <button className="btn-add" onClick={handleAdd}>
-            {rating > 0 ? "Modify Rating" : "+ Add to list."}
+            {rating > 0 ? "Modify Rating" : "+ Add to list"}
           </button>
         </div>
         <p>
