@@ -38,8 +38,8 @@ export default function MovieDetails({
             : (data.rating = 0);
           setMovie(data);
         } catch (err) {
+          if (err.name !== "AbortError") setError(err.message);
           console.error(err.message);
-          setError(err.message);
         } finally {
           setIsLoading(false);
         }
