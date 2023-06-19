@@ -45,6 +45,13 @@ export default function MovieDetails({
     [selectedId, watched]
   );
 
+  useEffect(
+    function () {
+      document.title = movie.Title;
+    },
+    [movie.Title]
+  );
+
   return (
     <>
       {isLoading && <Loader />}
