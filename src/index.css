@@ -32,13 +32,18 @@ body {
 /* ******* */
 
 .nav-bar {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 7.2rem;
   padding: 0 3.2rem;
   background-color: var(--color-primary);
   border-radius: 0.9rem;
+}
+
+.nav-bar form {
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .main {
