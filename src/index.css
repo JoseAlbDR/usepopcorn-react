@@ -203,11 +203,11 @@ body {
 
 .btn-delete {
   position: absolute;
-  right: 0;
-  width: 5rem;
-  height: 6rem;
+  right: 2.5rem;
+  width: 3rem;
+  height: 3rem;
   aspect-ratio: 1;
-  /* border-radius: 50%; */
+  border-radius: 50%;
   border: none;
   background-color: var(--color-red);
   color: var(--color-background-900);
