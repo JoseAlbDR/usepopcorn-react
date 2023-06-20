@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useKey } from "../hooks/useKey";
 
 export default function NavBar({ children }) {
   return (
@@ -29,21 +30,16 @@ export function Logo() {
 export function Search({ onSearch, query, onSetQuery }) {
   const inputEl = useRef(null);
 
+  useKey("", function () {
+    if (document.activeElement === inputEl) return;
+    inputEl.current.focus();
+  });
+
   function onSubmit(e) {
     e.preventDefault();
     onSearch(query);
     onSetQuery("");
   }
-
-  // Typing in APP will autofocus Search input
-  useEffect(function () {
-    function callback() {
-      if (document.activeElement === inputEl) return;
-      inputEl.current.focus();
-    }
-    document.addEventListener("keydown", callback);
-    return () => document.addEventListener("keydown", callback);
-  }, []);
 
   return (
     <form onSubmit={onSubmit}>

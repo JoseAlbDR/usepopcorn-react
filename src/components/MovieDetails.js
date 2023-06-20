@@ -2,6 +2,7 @@ import StarRating from "./StarRating";
 import { useEffect, useRef, useState } from "react";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
+import { useKey } from "../hooks/useKey";
 
 export default function MovieDetails({
   selectedId,
@@ -14,23 +15,8 @@ export default function MovieDetails({
   const [movie, setMovie] = useState({});
   const [error, setError] = useState("");
 
-  // Close movie details with Esc key
-  useEffect(
-    function () {
-      function callBack(e) {
-        if (e.code === "Escape") {
-          onCloseMovie();
-        }
-      }
-      //Attach
-      document.addEventListener("keydown", callBack);
-      //UnAttach
-      return function () {
-        document.removeEventListener("keydown", callBack);
-      };
-    },
-    [onCloseMovie]
-  );
+  // Use key hook
+  useKey("Escape", onCloseMovie);
 
   // Effect to fetch data when a movie from the movie list is selected
   useEffect(
@@ -65,15 +51,12 @@ export default function MovieDetails({
           }
           setMovie(data);
         } catch (err) {
-          if (err.name !== "AbortError") {
-            setError(err.message);
-            console.error(err.message);
-          }
+          setError(err.message);
+          console.error(err.message);
         } finally {
           setIsLoading(false);
         }
       }
-
       getMovieDetails();
     },
     [selectedId, watched]
@@ -111,7 +94,6 @@ function Details({
   useEffect(
     function () {
       if (userRating) ratingClicks.current = ratingClicks.current + 1;
-      console.log(ratingClicks.current);
     },
     [userRating]
   );
