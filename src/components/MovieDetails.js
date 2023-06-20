@@ -109,8 +109,7 @@ function Details({
 
   useEffect(
     function () {
-      if (userRating && userRating)
-        ratingClicks.current = ratingClicks.current + 1;
+      if (userRating) ratingClicks.current = ratingClicks.current + 1;
       console.log(ratingClicks.current);
     },
     [userRating]
