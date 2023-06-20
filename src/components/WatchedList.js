@@ -39,6 +39,7 @@ export function WatchedMoviesList({ watched, onSelectMovie, onDeleteMovie }) {
 }
 
 function WatchedMovie({ movie, onSelectMovie, onDeleteMovie }) {
+  console.log(movie);
   return (
     <div>
       <li onClick={() => onSelectMovie(movie.imdbID)}>
@@ -48,6 +49,7 @@ function WatchedMovie({ movie, onSelectMovie, onDeleteMovie }) {
           <SummaryItem icon={"⭐️"}>{movie.imdbRating}</SummaryItem>
           <SummaryItem icon={"🌟"}>{movie.userRating}</SummaryItem>
           <SummaryItem icon={"⏳"}>{movie.runtime} min</SummaryItem>
+          {/* <p>{movie.countRatingDecisions}</p> */}
         </div>
       </li>
       <button

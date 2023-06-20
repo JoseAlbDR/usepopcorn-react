@@ -37,10 +37,16 @@ export default function App() {
   }
 
   // Update movie userRating
-  function handleUpdateWatched(imdbID, rating) {
+  function handleUpdateWatched(imdbID, rating, countRating) {
     setWatched((watched) =>
       watched.map((watched) =>
-        watched.imdbID === imdbID ? { ...watched, userRating: rating } : watched
+        watched.imdbID === imdbID
+          ? {
+              ...watched,
+              userRating: rating,
+              countRatingDecisions: countRating,
+            }
+          : watched
       )
     );
   }

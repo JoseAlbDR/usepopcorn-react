@@ -1,5 +1,5 @@
 import StarRating from "../StarRating";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "../Loader";
 import ErrorMessage from "../ErrorMessage";
 
@@ -51,9 +51,17 @@ export default function MovieDetails({
           const foundMovie = watched.find(
             (movie) => movie.imdbID === selectedId
           );
-          foundMovie
-            ? (data.rating = foundMovie.userRating)
-            : (data.rating = 0);
+          // foundMovie
+          //   ? (data.rating = foundMovie.userRating)
+          //   : (data.rating = 0);
+
+          if (foundMovie) {
+            data.rating = foundMovie.userRating;
+            data.countRatingDecisions = foundMovie.countRatingDecisions;
+          } else {
+            data.rating = 0;
+            data.countRatingDecisions = 0;
+          }
           setMovie(data);
         } catch (err) {
           if (err.name !== "AbortError") {
@@ -95,7 +103,18 @@ function Details({
   imdbID,
 }) {
   const [userRating, setUserRating] = useState(0);
-  const [avgRating, setAvgRating] = useState(0);
+  // const [avgRating, setAvgRating] = useState(0);
+  console.log();
+  const ratingClicks = useRef(movie.countRatingDecisions);
+
+  useEffect(
+    function () {
+      if (userRating && userRating)
+        ratingClicks.current = ratingClicks.current + 1;
+      console.log(ratingClicks.current);
+    },
+    [userRating]
+  );
 
   const {
     Title: title,
@@ -120,14 +139,13 @@ function Details({
       poster,
       runtime: +runtime.split(" ").at(0),
       userRating: userRating,
+      countRatingDecisions: ratingClicks.current,
     };
 
-    rating > 0 && userRating !== rating
-      ? onUpdateWatched(imdbID, userRating)
+    rating > 0
+      ? onUpdateWatched(imdbID, userRating, ratingClicks.current)
       : onAddWatched(newWatchedMovie);
     onCloseMovie();
-
-    // setAvgRating((+userRating + +imdbRating) / 2);
   }
 
   function handleSetRating(rating) {
@@ -174,9 +192,11 @@ function Details({
             onSetRating={handleSetRating}
             defaultRating={rating}
           />
-          <button className="btn-add" onClick={handleAddUpdate}>
-            {rating > 0 ? "Modify Rating" : "+ Add to list"}
-          </button>
+          {rating !== userRating && (
+            <button className="btn-add" onClick={handleAddUpdate}>
+              {rating > 0 ? "Modify Rating" : "+ Add to list"}
+            </button>
+          )}
         </div>
         <p>
           <em>{plot}</em>

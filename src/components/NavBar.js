@@ -28,7 +28,6 @@ export function Logo() {
 export function Search({ onSearch }) {
   const [query, setQuery] = useState("");
   const inputEl = useRef(null);
-  const formEl = useRef(null);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -47,7 +46,7 @@ export function Search({ onSearch }) {
   }, []);
 
   return (
-    <form onSubmit={onSubmit} ref={formEl}>
+    <form onSubmit={onSubmit}>
       <input
         className="search"
         type="text"
