@@ -17,7 +17,6 @@ export default function App() {
   const [error, setError] = useState("");
   const [watched, setWatched] = useState(function () {
     const load = JSON.parse(localStorage.getItem("watched"));
-    console.log(load);
     return load;
   });
 
