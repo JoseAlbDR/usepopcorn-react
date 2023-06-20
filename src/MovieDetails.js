@@ -36,15 +36,13 @@ export default function MovieDetails({
   useEffect(
     function () {
       // Abort controller to abort fetching data if movies are clicked too fast
-      const controller = new AbortController();
 
       async function getMovieDetails() {
         try {
           setIsLoading(true);
           setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${selectedId}`,
-            { signal: controller.signal }
+            `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${selectedId}`
           );
           if (!res.ok)
             throw new Error("Something happened while fetching data.");
@@ -68,10 +66,6 @@ export default function MovieDetails({
       }
 
       getMovieDetails();
-
-      return function () {
-        controller.abort();
-      };
     },
     [selectedId, watched]
   );
@@ -169,6 +163,7 @@ function Details({
         </div>
       </header>
       <section>
+        {console.log(rating)}
         <div className="rating">
           <StarRating
             maxRating={10}
