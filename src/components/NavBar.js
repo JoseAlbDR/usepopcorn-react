@@ -37,7 +37,7 @@ export function Search({ onSearch }) {
 
   // Typing in APP will autofocus Search input
   useEffect(function () {
-    function callback(e) {
+    function callback() {
       if (document.activeElement === inputEl) return;
       inputEl.current.focus();
     }

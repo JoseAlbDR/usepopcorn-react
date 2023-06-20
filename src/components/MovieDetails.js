@@ -55,6 +55,7 @@ export default function MovieDetails({
           //   ? (data.rating = foundMovie.userRating)
           //   : (data.rating = 0);
 
+          // Add rating and countRatingDecicions to movie if is new
           if (foundMovie) {
             data.rating = foundMovie.userRating;
             data.countRatingDecisions = foundMovie.countRatingDecisions;
