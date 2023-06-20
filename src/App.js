@@ -9,12 +9,11 @@ import MovieDetail from "./components/MovieDetails";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import ToggleBtn from "./ToggleBtn";
+import { useMovies } from "./hooks/useMovies";
 
 export default function App() {
-  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [watched, setWatched] = useState(function () {
     const load = JSON.parse(localStorage.getItem("watched"));
     return load;
@@ -56,40 +55,6 @@ export default function App() {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== imdbID));
   }
 
-  // Function for search eventlistener in navBar
-  async function handleSearch(query) {
-    try {
-      // Guard clasue if query is empty
-      if (!query) return;
-
-      // Loading spiner to true
-      setIsLoading(true);
-
-      // Close previous opened movie
-      handleCloseMovie();
-
-      // Fetch data from API
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
-      );
-
-      // Error handling if bad response
-      if (!response.ok)
-        throw new Error("Something went wrong with fetching movies.");
-      const data = await response.json();
-
-      // Error handling if no/bad data
-      if (data.Response === "False") throw new Error(data.Error);
-      setMovies(data.Search);
-      setError("");
-    } catch (err) {
-      setError(err.message);
-      setMovies([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   useEffect(
     function () {
       localStorage.setItem("watched", JSON.stringify(watched));
@@ -97,10 +62,12 @@ export default function App() {
     [watched]
   );
 
+  const { movies, handleSearch, isLoading, error } = useMovies(query);
+
   return (
     <>
       <NavBar>
-        <Search onSearch={handleSearch} />
+        <Search onSearch={handleSearch} query={query} onSetQuery={setQuery} />
         <NumResults movies={movies} />
       </NavBar>
 

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+
 export default function NavBar({ children }) {
   return (
     <nav className="nav-bar">
@@ -25,14 +26,13 @@ export function Logo() {
   );
 }
 
-export function Search({ onSearch }) {
-  const [query, setQuery] = useState("");
+export function Search({ onSearch, query, onSetQuery }) {
   const inputEl = useRef(null);
 
   function onSubmit(e) {
     e.preventDefault();
     onSearch(query);
-    setQuery("");
+    onSetQuery("");
   }
 
   // Typing in APP will autofocus Search input
@@ -52,7 +52,7 @@ export function Search({ onSearch }) {
         type="text"
         placeholder="Search movies..."
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => onSetQuery(e.target.value)}
         ref={inputEl}
       />
       <span>
