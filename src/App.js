@@ -12,10 +12,14 @@ import ToggleBtn from "./ToggleBtn";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [watched, setWatched] = useState(function () {
+    const load = JSON.parse(localStorage.getItem("watched"));
+    console.log(load);
+    return load;
+  });
 
   // Close movie by seting selectedId to null
   function handleCloseMovie() {
@@ -31,8 +35,6 @@ export default function App() {
   function handleAddWatched(movie) {
     if (!watched.some((mov) => mov.imdbID === movie.imdbID))
       setWatched((watched) => [...watched, movie]);
-
-    localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   // Update movie userRating
@@ -43,10 +45,6 @@ export default function App() {
       )
     );
   }
-
-  useEffect(function () {
-    setWatched(JSON.parse(localStorage.getItem("watched")));
-  }, []);
 
   // Delete a movie from watched list
   function handleDeleteWatched(imdbID) {
@@ -86,6 +84,13 @@ export default function App() {
       setIsLoading(false);
     }
   }
+
+  useEffect(
+    function () {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    },
+    [watched]
+  );
 
   return (
     <>
