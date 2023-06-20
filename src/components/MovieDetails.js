@@ -95,6 +95,7 @@ function Details({
   imdbID,
 }) {
   const [userRating, setUserRating] = useState(0);
+  const [avgRating, setAvgRating] = useState(0);
 
   const {
     Title: title,
@@ -125,6 +126,8 @@ function Details({
       ? onUpdateWatched(imdbID, userRating)
       : onAddWatched(newWatchedMovie);
     onCloseMovie();
+
+    // setAvgRating((+userRating + +imdbRating) / 2);
   }
 
   function handleSetRating(rating) {
@@ -162,8 +165,8 @@ function Details({
           </p>
         </div>
       </header>
+      {/* <p>{avgRating}</p> */}
       <section>
-        {console.log(rating)}
         <div className="rating">
           <StarRating
             maxRating={10}

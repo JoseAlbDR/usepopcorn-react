@@ -89,16 +89,6 @@ export default function App() {
       </NavBar>
 
       <Main>
-        {/* <Box  element={ <MoviesList movies={movies}  />} /> */}
-        {/* <Box
-          element={
-            <WatchedList>
-              <WatchedSummary watched={watched} />
-              <WatchedMoviesList watched={watched} />
-            </WatchedList>
-          }
-        /> */}
-        {/* <Box>{isLoading ? <Loader /> : <MoviesList movies={movies} />}</Box> */}
         <Box>
           {isLoading && <Loader />}
           {!isLoading && !error && (
