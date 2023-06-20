@@ -1,11 +1,14 @@
 import { useState } from "react";
-import NavBar, { NumResults, Search } from "./NavBar";
-import MoviesList from "./MovieList";
-import WatchedList, { WatchedSummary, WatchedMoviesList } from "./WatchedList";
-import MovieDetail from "./MovieDetails";
+import NavBar, { NumResults, Search } from "./components/NavBar";
+import MoviesList from "./components/MovieList";
+import WatchedList, {
+  WatchedSummary,
+  WatchedMoviesList,
+} from "./components/WatchedList";
+import MovieDetail from "./components/MovieDetails";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
-import Box from "./Box";
+import ToggleBtn from "./ToggleBtn";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
@@ -140,4 +143,14 @@ export default function App() {
 
 function Main({ children }) {
   return <main className="main">{children}</main>;
+}
+
+function Box({ children }) {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <div className="box">
+      <ToggleBtn isOpen={isOpen} onSetIsOpen={setIsOpen} />
+      {isOpen && children}
+    </div>
+  );
 }

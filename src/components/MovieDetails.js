@@ -1,7 +1,7 @@
-import StarRating from "./StarRating";
+import StarRating from "../StarRating";
 import { useEffect, useState } from "react";
-import Loader from "./Loader";
-import ErrorMessage from "./ErrorMessage";
+import Loader from "../Loader";
+import ErrorMessage from "../ErrorMessage";
 
 export default function MovieDetails({
   selectedId,
