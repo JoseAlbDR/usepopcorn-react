@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useMovies(query) {
+export function useMovies(query, callback) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -13,7 +13,7 @@ export function useMovies(query) {
       setIsLoading(true);
 
       // Close previous opened movie
-      // onCloseMovie();
+      callback?.();
 
       // Fetch data from API
       const response = await fetch(

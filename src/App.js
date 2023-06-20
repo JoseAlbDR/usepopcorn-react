@@ -14,6 +14,10 @@ import { useMovies } from "./hooks/useMovies";
 export default function App() {
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const { movies, handleSearch, isLoading, error } = useMovies(
+    query,
+    handleCloseMovie
+  );
   const [watched, setWatched] = useState(function () {
     const load = JSON.parse(localStorage.getItem("watched"));
     return load;
@@ -61,8 +65,6 @@ export default function App() {
     },
     [watched]
   );
-
-  const { movies, handleSearch, isLoading, error } = useMovies(query);
 
   return (
     <>
