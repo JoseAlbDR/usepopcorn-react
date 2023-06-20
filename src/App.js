@@ -6,9 +6,9 @@ import WatchedList, {
   WatchedMoviesList,
 } from "./components/WatchedList";
 import MovieDetail from "./components/MovieDetails";
-import Loader from "./Loader";
-import ErrorMessage from "./ErrorMessage";
-import ToggleBtn from "./ToggleBtn";
+import Loader from "./components/Loader";
+import ErrorMessage from "./components/ErrorMessage";
+import ToggleBtn from "./components/ToggleBtn";
 import { useMovies } from "./hooks/useMovies";
 import { useLocalStorageState } from "./hooks/useLocalStorageState";
 
@@ -23,7 +23,10 @@ export default function App() {
   );
 
   // Local Storage hook to save and load movies from local storage
-  const { watched, setWatched } = useLocalStorageState();
+  const { value: watched, setValue: setWatched } = useLocalStorageState(
+    [],
+    "watched"
+  );
 
   // Close movie by seting selectedId to null
   function handleCloseMovie() {

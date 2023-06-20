@@ -39,7 +39,6 @@ export function WatchedMoviesList({ watched, onSelectMovie, onDeleteMovie }) {
 }
 
 function WatchedMovie({ movie, onSelectMovie, onDeleteMovie }) {
-  console.log(movie);
   return (
     <div>
       <li onClick={() => onSelectMovie(movie.imdbID)}>
