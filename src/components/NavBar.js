@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useKey } from "../hooks/useKey";
 
 export default function NavBar({ children }) {
@@ -30,6 +30,7 @@ export function Logo() {
 export function Search({ onSearch, query, onSetQuery }) {
   const inputEl = useRef(null);
 
+  // useKey hook to write directly in Search input when pressing any key
   useKey("", function () {
     if (document.activeElement === inputEl) return;
     inputEl.current.focus();
