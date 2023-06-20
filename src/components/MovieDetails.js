@@ -192,11 +192,9 @@ function Details({
             onSetRating={handleSetRating}
             defaultRating={rating}
           />
-          {rating !== userRating && (
-            <button className="btn-add" onClick={handleAddUpdate}>
-              {rating > 0 ? "Modify Rating" : "+ Add to list"}
-            </button>
-          )}
+          <button className="btn-add" onClick={handleAddUpdate}>
+            {rating > 0 ? "Modify Rating" : "+ Add to list"}
+          </button>
         </div>
         <p>
           <em>{plot}</em>
