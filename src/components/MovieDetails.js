@@ -21,8 +21,6 @@ export default function MovieDetails({
   // Effect to fetch data when a movie from the movie list is selected
   useEffect(
     function () {
-      // Abort controller to abort fetching data if movies are clicked too fast
-
       async function getMovieDetails() {
         try {
           setIsLoading(true);
@@ -134,6 +132,7 @@ function Details({
     setUserRating(rating);
   }
 
+  // Effect to show movie name in tab name
   useEffect(
     function () {
       document.title = `Movie | ${title}`;
