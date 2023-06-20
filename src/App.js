@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar, { NumResults, Search } from "./components/NavBar";
 import MoviesList from "./components/MovieList";
 import WatchedList, {
@@ -31,6 +31,8 @@ export default function App() {
   function handleAddWatched(movie) {
     if (!watched.some((mov) => mov.imdbID === movie.imdbID))
       setWatched((watched) => [...watched, movie]);
+
+    localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   // Update movie userRating
@@ -41,6 +43,10 @@ export default function App() {
       )
     );
   }
+
+  useEffect(function () {
+    setWatched(JSON.parse(localStorage.getItem("watched")));
+  }, []);
 
   // Delete a movie from watched list
   function handleDeleteWatched(imdbID) {

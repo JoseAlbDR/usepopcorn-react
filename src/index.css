@@ -159,6 +159,8 @@ body {
 }
 
 .list li {
+  width: 360px;
+
   position: relative;
   display: grid;
   grid-template-columns: 4rem 1fr;
