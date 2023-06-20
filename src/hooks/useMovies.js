@@ -17,7 +17,7 @@ export function useMovies(query, callback) {
 
       // Fetch data from API
       const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
+        `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
       );
 
       // Error handling if bad response
